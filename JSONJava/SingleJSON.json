@@ -1,0 +1,22 @@
+{
+	"data": [
+		{
+			"coureseName": "Appium",
+			"purchasedDate": "2022-09-04",
+			"amount": 99,
+			"location": "Asia"
+		},
+		{
+			"coureseName": "WebServices",
+			"purchasedDate": "2022-09-04",
+			"amount": 21,
+			"location": "Asia"
+		},
+		{
+			"coureseName": "Jmeter",
+			"purchasedDate": "2022-09-04",
+			"amount": 76,
+			"location": "Asia"
+		}
+	]
+}

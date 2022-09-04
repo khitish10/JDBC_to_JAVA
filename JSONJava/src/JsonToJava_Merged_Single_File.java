@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -44,7 +46,7 @@ public class JsonToJava_Merged_Single_File {
 			o.writeValue(new File("C:\\Users\\khitish\\git\\repository3\\JSONJava\\customerInfo"+i+".json"), a.get(i));//create a new file and put the content
 			
 			//Create JSON String from java object. Create JSON String from java object using Gson dependency
-			Gson g = new Gson();
+			Gson g = new Gson();//convert java object to json string
 			String jsonString = g.toJson(a.get(i));//takes argument as java object
 			js.add(jsonString);
 		}
@@ -54,6 +56,18 @@ public class JsonToJava_Merged_Single_File {
 		JSONObject jo = new JSONObject();
 		jo.put("data", js);//Entire JSON file is present inside js
 		System.out.println(jo.toJSONString());
+		
+		String unescapeString = StringEscapeUtils.unescapeJava(jo.toJSONString());//use Apache common text to to remove backslash(escape)
+		System.out.println(unescapeString);
+		String str1 = unescapeString.replace("\"{", "{");//removes the double quotes from beginning
+		String finalString = str1.replace("}\"", "}");//removes the double quotes from beginning
+		System.out.println(finalString);
+		
+		//Convert text we are getting in console to a file
+		try (FileWriter file = new FileWriter("C:\\Users\\khitish\\git\\repository3\\JSONJava\\SingleJSON.json")){
+			file.write(finalString);//file writer accepts only String args
+		}
+		
 		
 		conn.close();
 	}
